@@ -12,6 +12,10 @@ function Box() {
   );
 }
 
+function Space() {
+  return (0);
+}
+
 export default function App() {
   return <Canvas>
     <OrbitControls/>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Canvas } from "react-three-fiber";
-//import { OrbitControls } from "drei";
+import { OrbitControls } from "@react-three/drei";
 import './index.css';
 
 function Box() {
@@ -14,6 +14,8 @@ function Box() {
 
 export default function App() {
   return <Canvas>
+    <OrbitControls/>
+    <ambientLight intensity={0.5}/>
     <Box/>
   </Canvas>;
 }

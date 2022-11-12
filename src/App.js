@@ -22,11 +22,21 @@ const Incubator = ({ position, scale }) => (
   </group>
 );
 
-const Cube = ({ position, scale }) => (
+function Cube() {
+  return (
+    <mesh>
+      <boxBufferGeometry attach="geometry"/>
+      <meshLambertMaterial attach="material" emissive="0a9ca0" color={"#03e8fc"}/>
+    </mesh>
+  )
+}
+
+const Cell = ({ position, scale }) => (
   <group position={position} scale={scale}>
-    <Box />
+    <Cube />
   </group>
 )
+
 
 function Plane() {
   const mesh = useRef(null);
@@ -47,17 +57,20 @@ const Table = ({ scale }) => (
 
 export default function App() {
   
-  let incubator_x = 1, incubator_y = 1, incubator_z = 1;
+  let incubator_x = 2, incubator_y = 2, incubator_z = 2;
 
   return (
   <Canvas>
-    <OrbitControls maxDistance={10} minDistance={2}/>
+    <OrbitControls maxDistance={10} minDistance={0.5}/>
     <ambientLight intensity={0.5}/>
     <spotLight position={[10, 15, 10]} angle={0.3}/>
     <Incubator position={[0, 0, 0.5*incubator_z]} scale={[incubator_x, incubator_y, incubator_z]}/>
-    <Cube position={[0, 0, 0.5*incubator_z]} scale={[incubator_x*0.05, incubator_y*0.05, incubator_z*0.05]}/>
+      
+    <Cell position={[0.3, -0.3, 0.5*incubator_z-0.3]} scale={[incubator_x*0.05, incubator_y*0.05, incubator_z*0.05]}/>
+    <Cell position={[0.2, 0.34, 0.5*incubator_z+0.2]} scale={[incubator_x*0.05, incubator_y*0.05, incubator_z*0.05]}/>
+    <Cell position={[0.1, 0.1, 0.5*incubator_z-0.05]} scale={[incubator_x*0.05, incubator_y*0.05, incubator_z*0.05]}/>
+    <Cell position={[0, -0.1, 0.5*incubator_z+0.1]} scale={[incubator_x*0.05, incubator_y*0.05, incubator_z*0.05]}/>
     <Table scale={[incubator_x*0.5, incubator_y*0.5, 0]}/>
   </Canvas>
-  
   );
 }

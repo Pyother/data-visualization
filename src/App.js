@@ -10,8 +10,8 @@ function Box() {
   return (
     <mesh ref={mesh}>
       <boxBufferGeometry attach="geometry"/>
-      <meshLambertMaterial attach="material" color="#1fd2ff" emissive="0a9ca0" wireframe={false}/>
-    </mesh>    
+      <meshLambertMaterial attach="material" color="#1fd2ff" emissive="0a9ca0" wireframe={false} opacity={0.5} transparent/>
+    </mesh>
   );
 }
 
@@ -37,12 +37,11 @@ export default function App() {
   
   return (
   <Canvas>
-    <OrbitControls/>
+    <OrbitControls maxDistance={10} minDistance={2}/>
     <ambientLight intensity={0.5}/>
     <spotLight position={[10, 15, 10]} angle={0.3}/>
     <Cube position={[0, 0, 0.5]}/>
     <Plane/>
-
   </Canvas>
   
   );

@@ -12,3 +12,12 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+h1 {
+  font-family: 'Roboto Flex', sans-serif;
+  font-size: 42px;
+  letter-spacing: 3px;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+}

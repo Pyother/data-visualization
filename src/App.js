@@ -37,6 +37,37 @@ const Cell = ({ position, scale }) => (
   </group>
 )
 
+function Snowflake() {
+  var x=0.3, y=-0.3, z=0.5;
+  const array_shapes = [];
+  for (let i=0 ; i<7; i++) {
+    array_shapes.push(
+      <group>
+        <Cell position={[x, y+i*0.02, z*2-0.3]} scale={[2*0.01, 2*0.01, 2*0.01]}/>
+        <Cell position={[x+i*0.02, y, z*2-0.3]} scale={[2*0.01, 2*0.01, 2*0.01]}/>
+        <Cell position={[x, y-i*0.02, z*2-0.3]} scale={[2*0.01, 2*0.01, 2*0.01]}/>
+        <Cell position={[x-i*0.02, y, z*2-0.3]} scale={[2*0.01, 2*0.01, 2*0.01]}/>
+        <Cell position={[x, y, z*2-0.3+i*0.02]} scale={[2*0.01, 2*0.01, 2*0.01]}/>
+        <Cell position={[x, y, z*2-0.3-i*0.02]} scale={[2*0.01, 2*0.01, 2*0.01]}/>
+      </group>
+    );
+  }
+  for (let i=0; i<4; i++) {
+    array_shapes.push(
+      <group>
+        <Cell position={[x+i*0.02, y+i*0.02, z*2-0.3+i*0.02]} scale={[2*0.01, 2*0.01, 2*0.01]}/>
+        <Cell position={[x-i*0.02, y+i*0.02, z*2-0.3+i*0.02]} scale={[2*0.01, 2*0.01, 2*0.01]}/>
+        <Cell position={[x-i*0.02, y-i*0.02, z*2-0.3+i*0.02]} scale={[2*0.01, 2*0.01, 2*0.01]}/>
+        <Cell position={[x-i*0.02, y-i*0.02, z*2-0.3-i*0.02]} scale={[2*0.01, 2*0.01, 2*0.01]}/>
+        <Cell position={[x-i*0.02, y+i*0.02, z*2-0.3-i*0.02]} scale={[2*0.01, 2*0.01, 2*0.01]}/>
+        <Cell position={[x+i*0.02, y-i*0.02, z*2-0.3-i*0.02]} scale={[2*0.01, 2*0.01, 2*0.01]}/>
+        <Cell position={[x+i*0.02, y-i*0.02, z*2-0.3+i*0.02]} scale={[2*0.01, 2*0.01, 2*0.01]}/>
+        <Cell position={[x+i*0.02, y+i*0.02, z*2-0.3-i*0.02]} scale={[2*0.01, 2*0.01, 2*0.01]}/>
+      </group>
+    );
+  }
+  return(array_shapes);
+}
 
 function Plane() {
   const mesh = useRef(null);
@@ -65,11 +96,7 @@ export default function App() {
     <ambientLight intensity={0.5}/>
     <spotLight position={[10, 15, 10]} angle={0.3}/>
     <Incubator position={[0, 0, 0.5*incubator_z]} scale={[incubator_x, incubator_y, incubator_z]}/>
-      
-    <Cell position={[0.3, -0.3, 0.5*incubator_z-0.3]} scale={[incubator_x*0.05, incubator_y*0.05, incubator_z*0.05]}/>
-    <Cell position={[0.2, 0.34, 0.5*incubator_z+0.2]} scale={[incubator_x*0.05, incubator_y*0.05, incubator_z*0.05]}/>
-    <Cell position={[0.1, 0.1, 0.5*incubator_z-0.05]} scale={[incubator_x*0.05, incubator_y*0.05, incubator_z*0.05]}/>
-    <Cell position={[0, -0.1, 0.5*incubator_z+0.1]} scale={[incubator_x*0.05, incubator_y*0.05, incubator_z*0.05]}/>
+    <Snowflake/>
     <Table scale={[incubator_x*0.5, incubator_y*0.5, 0]}/>
   </Canvas>
   );

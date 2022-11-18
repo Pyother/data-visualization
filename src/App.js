@@ -1,12 +1,29 @@
 import * as THREE from 'three'
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import { Canvas, useFrame } from "react-three-fiber";
-import { OrbitControls, RoundedBox } from "@react-three/drei";
+import { OrbitControls } from "@react-three/drei";
 import './index.css';
+
+const array_points = [
+  [getRandomFloat(-0.75, 0.75, 4), getRandomFloat(-0.75, 0.75, 4), getRandomFloat(0.25, 1.75, 4)],
+  [getRandomFloat(-0.75, 0.75, 4), getRandomFloat(-0.75, 0.75, 4), getRandomFloat(0.25, 1.75, 4)],
+  [getRandomFloat(-0.75, 0.75, 4), getRandomFloat(-0.75, 0.75, 4), getRandomFloat(0.25, 1.75, 4)],
+  [getRandomFloat(-0.75, 0.75, 4), getRandomFloat(-0.75, 0.75, 4), getRandomFloat(0.25, 1.75, 4)],
+  [getRandomFloat(-0.75, 0.75, 4), getRandomFloat(-0.75, 0.75, 4), getRandomFloat(0.25, 1.75, 4)],
+  [getRandomFloat(-0.75, 0.75, 4), getRandomFloat(-0.75, 0.75, 4), getRandomFloat(0.25, 1.75, 4)],
+  [getRandomFloat(-0.75, 0.75, 4), getRandomFloat(-0.75, 0.75, 4), getRandomFloat(0.25, 1.75, 4)],
+  [getRandomFloat(-0.75, 0.75, 4), getRandomFloat(-0.75, 0.75, 4), getRandomFloat(0.25, 1.75, 4)],
+  [getRandomFloat(-0.75, 0.75, 4), getRandomFloat(-0.75, 0.75, 4), getRandomFloat(0.25, 1.75, 4)],
+  [getRandomFloat(-0.75, 0.75, 4), getRandomFloat(-0.75, 0.75, 4), getRandomFloat(0.25, 1.75, 4)]
+];
+
+function getRandomFloat(min, max, decimals) {
+  const str = (Math.random() * (max - min) + min).toFixed(decimals);
+  return parseFloat(str);
+}
 
 function Box() {
   const mesh = useRef(null);
-  const edges = new THREE.EdgesGeometry();
   useFrame(() => (mesh.current.rotation.z += 0.002));
   return (
     <mesh ref={mesh}>
@@ -28,19 +45,14 @@ function Cube() {
       <boxBufferGeometry attach="geometry"/>
       <meshLambertMaterial attach="material" emissive="0a9ca0" color={"#03e8fc"}/>
     </mesh>
-  )
+  );
 }
 
 const Cell = ({ position, scale }) => (
   <group position={position} scale={scale}>
     <Cube />
   </group>
-)
-
-function getRandomFloat(min, max, decimals) {
-  const str = (Math.random() * (max - min) + min).toFixed(decimals);
-  return parseFloat(str);
-}
+);
 
 function Snowflake() {
   var x=getRandomFloat(-0.75, 0.75, 4), y=getRandomFloat(-0.75, 0.75, 4), z=getRandomFloat(0.25, 1, 4);
@@ -74,6 +86,32 @@ function Snowflake() {
   return(array_shapes);
 }
 
+function Ball() {
+  return(
+    <mesh>
+      <sphereBufferGeometry attach="geometry"/>
+      <meshLambertMaterial attach="material" color={"#57ef92"}/>
+    </mesh>
+  );
+}
+
+const BallShape = ({ position, scale }) => (
+  <group position={position} scale={scale}>
+    <Ball />
+  </group>
+);
+
+function Balls() {
+  const array_shapes = [];
+  for (let i = 0; i < 10; i++) {
+    var x=array_points[i][0], y=array_points[i][1], z=array_points[i][2];
+    array_shapes.push(
+      <BallShape position={[x, y, z]} scale={[0.02, 0.02, 0.02]}/>
+    );
+  }
+  return(array_shapes);
+}
+
 function Plane() {
   const mesh = useRef(null);
   useFrame(() => (mesh.current.rotation.z += 0.002));
@@ -101,24 +139,7 @@ export default function App() {
     <ambientLight intensity={0.5}/>
     <spotLight position={[10, 15, 10]} angle={0.3}/>
     <Incubator position={[0, 0, 0.5*incubator_z]} scale={[incubator_x, incubator_y, incubator_z]}/>
-    <Snowflake/>
-    <Snowflake/>
-    <Snowflake/>
-    <Snowflake/>
-    <Snowflake/>
-    <Snowflake/>
-    <Snowflake/>
-    <Snowflake/>
-    <Snowflake/>
-    <Snowflake/>
-    <Snowflake/>
-    <Snowflake/>
-    <Snowflake/>
-    <Snowflake/>
-    <Snowflake/>
-    <Snowflake/>
-    <Snowflake/>
-    <Snowflake/>
+    <Balls/>
     <Table scale={[incubator_x*0.5, incubator_y*0.5, 0]}/>
   </Canvas>
   );

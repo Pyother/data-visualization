@@ -37,8 +37,13 @@ const Cell = ({ position, scale }) => (
   </group>
 )
 
+function getRandomFloat(min, max, decimals) {
+  const str = (Math.random() * (max - min) + min).toFixed(decimals);
+  return parseFloat(str);
+}
+
 function Snowflake() {
-  var x=0.3, y=-0.3, z=0.5;
+  var x=getRandomFloat(-0.75, 0.75, 4), y=getRandomFloat(-0.75, 0.75, 4), z=getRandomFloat(0.25, 1, 4);
   const array_shapes = [];
   for (let i=0 ; i<7; i++) {
     array_shapes.push(
@@ -96,6 +101,23 @@ export default function App() {
     <ambientLight intensity={0.5}/>
     <spotLight position={[10, 15, 10]} angle={0.3}/>
     <Incubator position={[0, 0, 0.5*incubator_z]} scale={[incubator_x, incubator_y, incubator_z]}/>
+    <Snowflake/>
+    <Snowflake/>
+    <Snowflake/>
+    <Snowflake/>
+    <Snowflake/>
+    <Snowflake/>
+    <Snowflake/>
+    <Snowflake/>
+    <Snowflake/>
+    <Snowflake/>
+    <Snowflake/>
+    <Snowflake/>
+    <Snowflake/>
+    <Snowflake/>
+    <Snowflake/>
+    <Snowflake/>
+    <Snowflake/>
     <Snowflake/>
     <Table scale={[incubator_x*0.5, incubator_y*0.5, 0]}/>
   </Canvas>
